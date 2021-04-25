@@ -1,0 +1,24 @@
+---
+- hosts: all
+  connection: local
+#  become: true
+
+  tasks:
+
+  - name: stop current running container
+    command: docker stop simple-devops-container
+    ignore_errors: yes
+
+  - name: remove stopped container
+    command: docker rm simple-devops-container
+    ignore_errors: yes
+
+  - name: remove docker image
+    command: docker rmi jcfoster02/simple-devops-image:latest
+    ignore_errors: yes
+
+  - name: pull docker image from DockerHub
+    command: docker pull jcfoster02/simple-devops-image:latest
+
+  - name: create docker container using simple-devops-image
+    command: docker run -d --name simple-devops-container -p 8095:8080 jcfoster02/simple-devops-image:latest

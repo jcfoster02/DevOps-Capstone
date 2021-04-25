@@ -1,0 +1,8 @@
+---
+- name: Install Docker on Ubuntu server
+  hosts: all
+  become: yes
+  tasks:
+    - name: Installing Docker
+      apt: name=docker.io state=present update_cache=yes   # apt-get update
+      tags: install_docker
